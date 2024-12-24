@@ -1,17 +1,29 @@
 package tests;
 
 import dto.Customer;
-import org.testng.Assert;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class CheckOutTest extends BaseTest{
-    @Test
-    public void checkoutTest(){
-        Customer customer = new Customer("Alena", "Zhilina", "000000");
+public class CheckOutTest extends BaseTest {
+
+    @Test (description = "E2E тест", testName = "Проверка сквозного тестирования")
+    @Epic("SD-1")
+    @Feature("SD-1.1")
+    @Story(("SD-1.1.1"))
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Проверка сквозного тестирования")
+    @Link("https://www.saucedemo.com/")
+    @Issue("BUG-1")
+    @TmsLink("TMS-1")
+    @Flaky
+    public void checkoutTest() {
+        Customer customer = new Customer("Ivan", "Petrov", "123456");
         loginPage.open()
+                .isPageOpened()
                 .login("standard_user", "secret_sauce")
+                .isPageOpened()
                 .addToCart("Sauce Labs Bolt T-Shirt")
                 .addToCart("Sauce Labs Onesie")
                 .clickToCart()
@@ -20,18 +32,5 @@ public class CheckOutTest extends BaseTest{
                 .clickContinue()
                 .clickFinish();
         assertEquals(completePage.getFinishMessage(), "Thank you for your order!");
-
-
-//        loginPage.open();
-//        loginPage.login("standard_user", "secret_sauce");
-//        productsPage.addToCart("Sauce Labs Bolt T-Shirt");
-//        productsPage.addToCart("Sauce Labs Onesie");
-//        productsPage.clickToCart();
-//        cartPage.clickCheckoutButton();
-//        checkoutInfo.writeInfo("Alena", "Zhilina", "000000");
-//        checkoutInfo.clickContinue();
-//        overviewPage.clickFinish();
-//        Assert.assertEquals(completePage.getFinishMessage(), "Thank you for your order!");
-
     }
 }

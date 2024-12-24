@@ -23,8 +23,8 @@ public class BaseTest {
     public void setup() {
         ChromeOptions options = new ChromeOptions();
 //        options.addArguments("--headless");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        options.addArguments("--start-maximized");
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
@@ -32,7 +32,6 @@ public class BaseTest {
         completePage = new CompletePage(driver);
         overviewPage = new OverviewPage(driver);
         cartPage = new CartPage(driver);
-
     }
 
     @AfterMethod
